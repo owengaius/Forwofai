@@ -14,7 +14,7 @@
 
         body {
             min-height: 100vh;
-            background: linear-gradient(135deg, #1b1626 0%, #291b33 50%, #15141c 100%);
+            background: linear-gradient(135deg, #181324 0%, #291836 50%, #121117 100%);
             font-family: 'Plus Jakarta Sans', sans-serif;
             color: #f3f0ea;
             display: flex;
@@ -28,22 +28,25 @@
         /* Floating background particles */
         .particle {
             position: absolute;
-            background: rgba(230, 161, 92, 0.2);
-            border-radius: 50%;
+            font-size: 1.2rem;
             pointer-events: none;
-            animation: floatUp 8s infinite linear;
+            animation: floatUp 7s infinite linear;
+            opacity: 0;
         }
 
         @keyframes floatUp {
             0% {
-                transform: translateY(100vh) scale(0.5);
+                transform: translateY(105vh) scale(0.6) rotate(0deg);
                 opacity: 0;
             }
-            50% {
+            20% {
+                opacity: 0.8;
+            }
+            80% {
                 opacity: 0.8;
             }
             100% {
-                transform: translateY(-20vh) scale(1.2);
+                transform: translateY(-15vh) scale(1.3) rotate(360deg);
                 opacity: 0;
             }
         }
@@ -59,10 +62,21 @@
             max-width: 520px;
             width: 100%;
             text-align: center;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
             position: relative;
             z-index: 10;
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: cardAppear 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
 
         /* Initial Gift Box State */
@@ -71,24 +85,25 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 20px 0;
+            padding: 30px 0;
         }
 
         .gift-box {
-            font-size: 5rem;
+            font-size: 5.5rem;
             cursor: pointer;
-            animation: bounce 2s infinite ease-in-out;
+            animation: superBounce 2.2s infinite ease-in-out;
             margin-bottom: 24px;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            filter: drop-shadow(0 10px 15px rgba(230, 161, 92, 0.3));
         }
 
         .gift-box:hover {
-            transform: scale(1.1);
+            transform: scale(1.15) rotate(5deg);
         }
 
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        @keyframes superBounce {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-12px) scale(1.05); }
         }
 
         .gift-instruction {
@@ -96,6 +111,12 @@
             color: #d1cbd8;
             font-weight: 300;
             letter-spacing: 0.5px;
+            animation: pulseText 2s infinite ease-in-out;
+        }
+
+        @keyframes pulseText {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
         }
 
         /* Main Content State (Hidden initially) */
@@ -114,7 +135,7 @@
 
         h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
+            font-size: 2.3rem;
             font-weight: 600;
             margin-bottom: 8px;
             background: linear-gradient(to right, #ffffff, #dcd6f7, #e6a15c);
@@ -125,16 +146,16 @@
         .subtitle {
             font-size: 0.95rem;
             color: #b8b2c2;
-            margin-bottom: 30px;
+            margin-bottom: 26px;
             font-weight: 300;
         }
 
         /* Interactive Card Deck */
         .deck-container {
-            min-height: 160px;
+            min-height: 165px;
             background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 18px;
             padding: 24px;
             display: flex;
             flex-direction: column;
@@ -143,11 +164,19 @@
             margin-bottom: 24px;
             position: relative;
             cursor: pointer;
-            transition: background 0.3s ease;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.02);
         }
 
         .deck-container:hover {
             background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(230, 161, 92, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .card-inner {
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            width: 100%;
         }
 
         .card-number {
@@ -182,33 +211,54 @@
             font-weight: 300;
             margin-bottom: 24px;
             text-align: left;
-            animation: fadeIn 0.8s ease forwards;
+            animation: fadeInFinal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         .final-message p {
             margin-bottom: 12px;
         }
 
-        @keyframes fadeIn {
-            to { opacity: 1; }
+        @keyframes fadeInFinal {
+            from { opacity: 0; transform: scale(0.97); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .signature-block {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            margin-top: 15px;
+            text-align: center;
         }
 
         .signature {
             font-family: 'Playfair Display', serif;
             font-style: italic;
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             color: #e6a15c;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: 20px;
-            margin-top: 10px;
+            margin-bottom: 8px;
             display: block;
-            text-align: center;
+        }
+
+        .love-you {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            background: linear-gradient(to right, #ff99cc, #ffc2d6, #e6a15c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: lovePulse 2.5s infinite ease-in-out;
+            display: inline-block;
+        }
+
+        @keyframes lovePulse {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 2px rgba(255, 153, 204, 0.3)); }
+            50% { transform: scale(1.05); filter: drop-shadow(0 0 8px rgba(230, 161, 92, 0.6)); }
         }
 
         /* Button controls */
         .action-btn {
             background: linear-gradient(135deg, #e6a15c 0%, #d48b43 100%);
-            color: #1b1626;
+            color: #181324;
             border: none;
             padding: 12px 28px;
             border-radius: 30px;
@@ -222,33 +272,40 @@
         }
 
         .action-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(230, 161, 92, 0.4);
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 6px 20px rgba(230, 161, 92, 0.5);
         }
 
         /* Ambient Glows */
         .ambient-glow {
             position: absolute;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(230, 161, 92, 0.12) 0%, transparent 70%);
-            top: 15%;
-            left: 20%;
+            width: 320px;
+            height: 320px;
+            background: radial-gradient(circle, rgba(230, 161, 92, 0.15) 0%, transparent 70%);
+            top: 10%;
+            left: 15%;
             z-index: 1;
-            filter: blur(40px);
+            filter: blur(50px);
             pointer-events: none;
+            animation: pulseGlow 4s infinite alternate;
         }
 
         .ambient-glow-2 {
             position: absolute;
-            width: 350px;
-            height: 350px;
-            background: radial-gradient(circle, rgba(130, 100, 180, 0.12) 0%, transparent 70%);
-            bottom: 15%;
-            right: 20%;
+            width: 380px;
+            height: 380px;
+            background: radial-gradient(circle, rgba(140, 100, 200, 0.15) 0%, transparent 70%);
+            bottom: 10%;
+            right: 15%;
             z-index: 1;
-            filter: blur(50px);
+            filter: blur(60px);
             pointer-events: none;
+            animation: pulseGlow 5s infinite alternate-reverse;
+        }
+
+        @keyframes pulseGlow {
+            from { transform: scale(1); opacity: 0.7; }
+            to { transform: scale(1.15); opacity: 1; }
         }
     </style>
 </head>
@@ -261,18 +318,20 @@
         <!-- Step 1: Interactive Gift Box -->
         <div id="gift-view">
             <div class="gift-box" onclick="openGift()">🎁</div>
-            <div class="gift-instruction">Tap to open something special, Wofai</div>
+            <div class="gift-instruction">Tap to open something special, Wofai 🤍</div>
         </div>
 
         <!-- Step 2: Unlocked Content -->
         <div id="content-view">
             <h1>For Wofai</h1>
-            <div class="subtitle">Click through the cards below</div>
+            <div class="subtitle">Tap the card to continue</div>
 
             <!-- Interactive Deck -->
             <div class="deck-container" id="deck" onclick="nextCard()">
-                <div class="card-number" id="card-num">Reason 1 of 4</div>
-                <div class="card-text" id="card-text">"The way you bring a special kind of warmth and brightness to ordinary days."</div>
+                <div class="card-inner" id="card-inner">
+                    <div class="card-number" id="card-num">Reason 1 of 4</div>
+                    <div class="card-text" id="card-text">"The way you bring a special kind of warmth and brightness to ordinary days."</div>
+                </div>
                 <div class="card-hint">Tap for next ✦</div>
             </div>
 
@@ -280,10 +339,13 @@
             <div class="final-message" id="final-msg">
                 <p>Every now and then, someone comes into your life and completely redefines what warmth, kindness, and genuine connection look like.</p>
                 <p>Thank you for being wonderfully, beautifully you, and for all the little ways you make life infinitely better.</p>
-                <span class="signature">With all my love</span>
+                <div class="signature-block">
+                    <span class="signature">With all my heart</span>
+                    <span class="love-you">I love you, Wofai 🤍</span>
+                </div>
             </div>
 
-            <button class="action-btn" id="finish-btn" style="display:none;" onclick="location.reload()">Replay Experience 🤍</button>
+            <button class="action-btn" id="finish-btn" style="display:none;" onclick="location.reload()">Replay Experience ✨</button>
         </div>
     </div>
 
@@ -313,49 +375,64 @@
             // Hide gift view
             document.getElementById('gift-view').style.display = 'none';
             
-            // Show content view
+            // Show content view with animation trigger
             const content = document.getElementById('content-view');
             content.classList.add('visible');
 
-            // Create floating particle effect
-            createParticles();
+            // Trigger floating celebratory particles
+            startFloatingParticles();
         }
 
         function nextCard() {
             currentCardIndex++;
-            if (currentCardIndex < cardsData.length) {
-                // Update card text with smooth transition effect
-                const deck = document.getElementById('deck');
-                deck.style.opacity = '0';
-                setTimeout(() => {
+            const innerCard = document.getElementById('card-inner');
+            
+            // Smooth zoom-out and fade effect before swapping text
+            innerCard.style.transform = 'scale(0.94)';
+            innerCard.style.opacity = '0';
+
+            setTimeout(() => {
+                if (currentCardIndex < cardsData.length) {
                     document.getElementById('card-num').innerText = cardsData[currentCardIndex].num;
                     document.getElementById('card-text').innerText = cardsData[currentCardIndex].text;
+                    
                     if (currentCardIndex === cardsData.length - 1) {
                         document.querySelector('.card-hint').innerText = 'Tap to read final note ✦';
                     }
-                    deck.style.opacity = '1';
-                }, 200);
-            } else {
-                // Hide deck and show final message
-                document.getElementById('deck').style.display = 'none';
-                document.getElementById('content-view').querySelector('.subtitle').style.display = 'none';
-                document.getElementById('final-msg').style.display = 'block';
-                document.getElementById('finish-btn').style.display = 'inline-block';
-            }
+                    
+                    // Zoom back in smoothly
+                    innerCard.style.transform = 'scale(1)';
+                    innerCard.style.opacity = '1';
+                } else {
+                    // Hide deck smoothly and show final message
+                    document.getElementById('deck').style.display = 'none';
+                    document.getElementById('content-view').querySelector('.subtitle').style.display = 'none';
+                    document.getElementById('final-msg').style.display = 'block';
+                    document.getElementById('finish-btn').style.display = 'inline-block';
+                }
+            }, 250);
         }
 
-        function createParticles() {
-            for (let i = 0; i < 15; i++) {
+        function startFloatingParticles() {
+            const symbols = ['💖', '✨', '🤍', '💫', '🌸'];
+            
+            // Create particles continuously
+            setInterval(() => {
                 const particle = document.createElement('div');
                 particle.classList.add('particle');
-                const size = Math.random() * 8 + 4 + 'px';
-                particle.style.width = size;
-                particle.style.height = size;
+                particle.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+                
+                // Random horizontal positioning and speed
                 particle.style.left = Math.random() * window.innerWidth + 'px';
-                particle.style.animationDuration = (Math.random() * 4 + 5) + 's';
-                particle.style.animationDelay = (Math.random() * 2) + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 5) + 's';
+                
                 document.body.appendChild(particle);
-            }
+
+                // Clean up DOM element after animation finishes
+                setTimeout(() => {
+                    particle.remove();
+                }, 8000);
+            }, 400);
         }
     </script>
 </body>
